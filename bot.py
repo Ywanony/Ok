@@ -13,10 +13,10 @@ from aiogram.exceptions import TelegramNetworkError
 from supabase import Client, create_client
 
 # ==================== CONFIGURATION ====================
-BOT_TOKEN = "8516657994:AAH6CMk08ZhzP_rgckcMUaDgj7xFHZu6Eb0"
+BOT_TOKEN = "8495224662:AAFHbmaYBCqX_G-2EGC58iSQoCfe2yl-L-g"
 
 # Multiple Admin IDs Support
-ADMIN_IDS = [8856853887, 8459158216]  
+ADMIN_IDS = [8793053750, 8459158216]  
 
 SUPPORT_USERNAME = "AapkaUsername"  # Without '@'
 PUBLIC_DEMO_CHANNEL_LINK = "https://t.me/YourPublicDemoChannel"
@@ -37,7 +37,8 @@ CATEGORIES = {
     "cat_newone": "✨ New One",
     "cat_member": "👥 Member",
     "cat_java": "☕ Java",
-    "cat_python": "🐍 Python"
+    "cat_python": "🐍 Python",
+    "cat_all": "🔥 All Collection Vids"
 }
 # =======================================================
 
@@ -58,7 +59,7 @@ def is_admin(user_id: int) -> bool:
     return user_id in ADMIN_IDS
 
 
-# Upsert User Data to Supabase (Defined early to prevent NameError)
+# Upsert User Data to Supabase
 def log_user_to_db(user):
     try:
         supabase.table("bot_users").upsert({
@@ -82,7 +83,7 @@ def get_main_menu_keyboard():
     )
 
 
-# Helper: Membership Categories Hub (6 Course Buttons + Back Button)
+# Helper: Membership Categories Hub (6 Options + 7th All Collection Vids + Back Button)
 def get_membership_categories_keyboard():
     keys = list(CATEGORIES.keys())
     return InlineKeyboardMarkup(
@@ -98,6 +99,9 @@ def get_membership_categories_keyboard():
             [
                 InlineKeyboardButton(text=f"🔹 {CATEGORIES[keys[4]]}", callback_data=keys[4]),
                 InlineKeyboardButton(text=f"🔹 {CATEGORIES[keys[5]]}", callback_data=keys[5]),
+            ],
+            [
+                InlineKeyboardButton(text=f"🌟 {CATEGORIES[keys[6]]} (₹699)", callback_data=keys[6]),
             ],
             [InlineKeyboardButton(text="« [ Back to Main Menu ]", callback_data="main_menu")],
         ]
@@ -126,13 +130,6 @@ def get_admin_panel_keyboard():
             ],
             [InlineKeyboardButton(text="📢 Broadcast Message", callback_data="admin_broadcast_start")],
         ]
-    )
-
-
-# Helper: Back to Home Keyboard
-def get_back_keyboard():
-    return InlineKeyboardMarkup(
-        inline_keyboard=[[InlineKeyboardButton(text="« [ Back to Main Menu ]", callback_data="main_menu")]]
     )
 
 
@@ -307,13 +304,14 @@ async def execute_broadcast(message: Message, state: FSMContext):
 async def process_buy_membership(callback: CallbackQuery):
     plans_text = (
         "💎 **Select Your VIP Membership Category**\n\n"
-        "Choose any category option from 1 to 6 below to open the corresponding plan checkout:"
+        "Choose any category option below to open the corresponding plan checkout:"
     )
     await safe_edit_message(callback.message, plans_text, get_membership_categories_keyboard(), photo_url=DEFAULT_BANNER_URL)
     await callback.answer()
 
 
-@router.callback_query(F.data.in_(list(CATEGORIES.keys())))
+# Handler for Categories 1 to 6 (Study, Material, New One, Member, Java, Python)
+@router.callback_query(F.data.in_(["cat_study", "cat_material", "cat_newone", "cat_member", "cat_java", "cat_python"]))
 async def process_selected_category(callback: CallbackQuery, state: FSMContext):
     cat_code = callback.data
     await state.update_data(current_category=cat_code)
@@ -324,6 +322,42 @@ async def process_selected_category(callback: CallbackQuery, state: FSMContext):
         "Choose a duration and tier that fits your needs best from the options below:"
     )
     await safe_edit_message(callback.message, plan_select_text, get_membership_plans_keyboard(cat_code), photo_url=DEFAULT_BANNER_URL)
+    await callback.answer()
+
+
+# Handler for "All Collection Vids" (cat_all) -> Fixed ₹699 Lifetime Bundle Checkout
+@router.callback_query(F.data == "cat_all")
+async def process_all_collection(callback: CallbackQuery, state: FSMContext):
+    order_id = generate_order_id()
+    amount = 699
+    duration_days = 9999
+    duration_text = "Lifetime Access"
+    plan_name = "All Collection Vids (Full Bundle)"
+
+    await state.update_data(
+        current_order_id=order_id,
+        current_amount=amount,
+        current_duration=duration_days,
+        current_plan_name=plan_name
+    )
+
+    details_text = (
+        f"🎁 **Category:** {plan_name}\n"
+        f"💰 **Amount:** {amount} INR\n"
+        f"⏳ **Access Duration:** {duration_text}\n"
+        f"🆔 **Order ID:** `{order_id}`\n"
+        "📱 **Pay using any UPI app** (GPay, PhonePe, Paytm)\n"
+        "⏱️ *QR code is valid for 15 minutes only*\n\n"
+        "📲 **Scan the QR Code above to pay.**\n"
+        "👇 Click **'I Have Paid'** after completing the payment transaction."
+    )
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="💳 [ I Have Paid ]", callback_data="pay_now")],
+            [InlineKeyboardButton(text="« [ Back to Categories ]", callback_data="buy_membership")],
+        ]
+    )
+    await safe_edit_message(callback.message, details_text, keyboard, photo_url=CUSTOM_PLAN_QR)
     await callback.answer()
 
 
@@ -338,11 +372,13 @@ async def process_selected_plan(callback: CallbackQuery, state: FSMContext):
         amount, duration_days, duration_text, plan_name = 199, 30, "30 Days", "Starter Plan (30 Days)"
     elif amount_str == "399":
         amount, duration_days, duration_text, plan_name = 399, 180, "6 Months", "Standard Plan (6 Months)"
+    elif amount_str == "699":
+        amount, duration_days, duration_text, plan_name = 699, 9999, "Lifetime", "All Collection Vids (Full Bundle)"
     else:
         amount, duration_days, duration_text, plan_name = 499, 9999, "Lifetime", "Lifetime VIP Plan (Lifetime)"
 
     category_clean_name = CATEGORIES.get(cat_code, "VIP Plan")
-    full_plan_name = f"{plan_name} - {category_clean_name}"
+    full_plan_name = f"{plan_name} - {category_clean_name}" if amount_str != "699" else plan_name
 
     await state.update_data(
         current_order_id=order_id,
@@ -426,15 +462,16 @@ async def receive_screenshot(message: Message, state: FSMContext):
     safe_username = escape_markdown_safe(username)
     safe_plan = escape_markdown_safe(plan_name)
 
+    # Highlighted Admin Verification View displaying Key User Info Prominently
     admin_caption = (
-        f"🔔 *New Verification Request Pending!*\n\n"
-        f"👤 *Name:* {safe_fullname}\n"
-        f"🔗 *Username:* {safe_username}\n"
-        f"🆔 *User ID:* `{user.id}`\n"
-        f"📦 *Plan:* {safe_plan}\n"
-        f"💰 *Amount:* ₹{amount}\n"
-        f"🏷️ *Order ID:* `{order_id}`\n\n"
-        "Authorize screenshot:"
+        f"🚨 <b>NEW PAYMENT PENDING VERIFICATION</b> 🚨\n\n"
+        f"👤 <b>Name:</b> {user.full_name}\n"
+        f"🔗 <b>Username:</b> <code>{username}</code>\n"
+        f"🆔 <b>Chat/User ID:</b> <code>{user.id}</code>\n"
+        f"📦 <b>Plan Selected:</b> {plan_name}\n"
+        f"💰 <b>Amount Transferred:</b> ₹{amount}\n"
+        f"🏷️ <b>Order ID:</b> <code>{order_id}</code>\n\n"
+        "👉 <i>Review the screenshot below and choose action:</i>"
     )
     admin_keyboard = InlineKeyboardMarkup(
         inline_keyboard=[[
@@ -442,7 +479,18 @@ async def receive_screenshot(message: Message, state: FSMContext):
             InlineKeyboardButton(text="❌ Reject", callback_data=f"reject_{user.id}_{order_id}"),
         ]]
     )
-    await notify_all_admins(message.bot, admin_caption, admin_keyboard, photo_id=photo_id)
+    
+    for admin_id in ADMIN_IDS:
+        try:
+            await message.bot.send_photo(
+                chat_id=admin_id,
+                photo=photo_id,
+                caption=admin_caption,
+                reply_markup=admin_keyboard,
+                parse_mode=ParseMode.HTML
+            )
+        except Exception as e:
+            logging.error(f"Failed to send highlighted notification to admin {admin_id}: {e}")
 
 
 @router.message(PaymentStates.waiting_for_screenshot)
@@ -587,18 +635,24 @@ async def process_rejection_reason_input(message: Message, state: FSMContext):
     await state.clear()
 
 
+# Support Handler (Displays clean contact text with direct admin username button, no images)
 @router.callback_query(F.data == "support")
 async def process_support(callback: CallbackQuery):
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[[InlineKeyboardButton(text="« [ Back to Main Menu ]", callback_data="main_menu")]]
-    )
-    await safe_edit_message(
-        callback.message,
+    support_text = (
         "💬 **Customer Support**\n\n"
-        f"Contact admin directly: <a href='https://t.me/{SUPPORT_USERNAME}'>Click Here to Message Support</a>",
-        keyboard,
-        photo_url=DEFAULT_BANNER_URL
+        "If you are facing any issues with payments or activation, please contact our support admin directly using the button below:"
     )
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="💬 Contact Support Admin", url=f"https://t.me/{SUPPORT_USERNAME}")],
+            [InlineKeyboardButton(text="« [ Back to Main Menu ]", callback_data="main_menu")],
+        ]
+    )
+    try:
+        await callback.message.delete()
+    except Exception:
+        pass
+    await callback.message.answer(support_text, reply_markup=keyboard, parse_mode=ParseMode.MARKDOWN)
     await callback.answer()
 
 
