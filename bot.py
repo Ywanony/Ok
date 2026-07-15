@@ -13,10 +13,10 @@ from aiogram.exceptions import TelegramNetworkError
 from supabase import Client, create_client
 
 # ==================== CONFIGURATION ====================
-BOT_TOKEN = "8495224662:AAFHbmaYBCqX_G-2EGC58iSQoCfe2yl-L-g"
+BOT_TOKEN = "8619773434:AAELJWNVdXcqxh2cheyXSgx87DpLIcK4aBc"
 
 # Multiple Admin IDs Support
-ADMIN_IDS = [8793053750, 8459158216]  
+ADMIN_IDS = [8740270617, 8459158216]  
 
 SUPPORT_USERNAME = "AapkaUsername"  # Without '@'
 PUBLIC_DEMO_CHANNEL_LINK = "https://t.me/YourPublicDemoChannel"
