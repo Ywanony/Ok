@@ -32,13 +32,13 @@ DEFAULT_BANNER_URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQld2
 
 # DYNAMIC CATEGORY BUTTON NAMES (Change names here anytime)
 CATEGORIES = {
-    "cat_study": "📖 Study",
-    "cat_material": "📦 Material",
-    "cat_newone": "✨ New One",
-    "cat_member": "👥 Member",
-    "cat_java": "☕ Java",
-    "cat_python": "🐍 Python",
-    "cat_all": "🔥 All Collection Vids"
+    "cat_study": "CP,RP😍",
+    "cat_material": "DESI LEAKED💧",
+    "cat_newone": "MOM SON+PEDO",
+    "cat_member": "HIDDEN,TANGO",
+    "cat_java": "PAK,JAPANESE",
+    "cat_python": "MALLU/TAMIL🤩",
+    "cat_all": "🔥𝖠𝖫𝖫 𝖢𝖮𝖫𝖫𝖤𝖢𝖳𝖨𝖮𝖭 𝖡𝖴𝖸🔞"
 }
 
 # 7 DIFFERENT PHOTOS FOR THE 7 CATEGORY BUTTONS
