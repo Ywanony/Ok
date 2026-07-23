@@ -13,22 +13,22 @@ from aiogram.exceptions import TelegramNetworkError
 from supabase import Client, create_client
 
 # ==================== CONFIGURATION ====================
-BOT_TOKEN = "8495224662:AAFHbmaYBCqX_G-2EGC58iSQoCfe2yl-L-g"
+BOT_TOKEN = "8629987412:AAEFQPaUjZBC8YKoki_7dVU5-hVm5BHF7Jc"
 
 # Multiple Admin IDs Support
-ADMIN_IDS = [8793053750, 8459158216]  
+ADMIN_IDS = [8740270617, 8459158216]  
 
-SUPPORT_USERNAME = "AapkaUsername"  # Without '@'
-PUBLIC_DEMO_CHANNEL_LINK = "https://t.me/YourPublicDemoChannel"
+SUPPORT_USERNAME = "VlPSuppot"  # Without '@'
+PUBLIC_DEMO_CHANNEL_LINK = "https://t.me/D3mo_group"
 
 # Supabase Credentials
 SUPABASE_URL = "https://xemwpqqlxmpkrsdzpdwu.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhlbXdwcXFseG1wa3JzZHpwZHd1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4Mzk1MTkwNiwiZXhwIjoyMDk5NTI3OTA2fQ._2Smw4MsHqeJkSzSUrBWFWUrQ8UClOmAeYWNf4lGStc"
 
 # Custom Images & Banners
-INTRO_IMAGE_URL = "https://png.pngtree.com/thumb_back/fh260/background/20230612/pngtree-top-3-best-bald-eagle-ps4-wallpaper-by-aian-image_2898581.jpg"
-CUSTOM_PLAN_QR = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfBWYQ5aAlCYIoMECtWoJt5oFXBdmkjhbAPiBNI44yCg&s"
-DEFAULT_BANNER_URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQld2rqd66qLoJ3zndiyeirjwp294Brrt2kj9b7IF89Xg&s"
+INTRO_IMAGE_URL = "https://i.ibb.co/JbDHr17/x.jpg"
+CUSTOM_PLAN_QR = "https://i.ibb.co/8DzYrm42/x.jpg"
+DEFAULT_BANNER_URL = "https://i.ibb.co/wNKNQDGy/x.jpg"
 
 # DYNAMIC CATEGORY BUTTON NAMES (Change names here anytime)
 CATEGORIES = {
@@ -43,13 +43,13 @@ CATEGORIES = {
 
 # 7 DIFFERENT PHOTOS FOR THE 7 CATEGORY BUTTONS
 CATEGORY_PHOTOS = {
-    "cat_study": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiCduCFseX1zwS5wVs6FJLixSWMRIgSi6padV-W_7Mmg&s=10",
-    "cat_material": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Y-IwszENWO79warvoSmpMN_4uA6KUZib3X5-2Mdmww&s=10",
-    "cat_newone": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600",
-    "cat_member": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600",
-    "cat_java": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600",
-    "cat_python": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600",
-    "cat_all": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600"
+    "cat_study": "https://i.ibb.co/TMsv6GGf/x.jpg",
+    "cat_material": "https://i.ibb.co/Cp4Mdfnb/x.jpg",
+    "cat_newone": "https://i.ibb.co/wrS6wxh3/x.jpg",
+    "cat_member": "https://i.ibb.co/RTWYpzHW/x.jpg",
+    "cat_java": "https://i.ibb.co/RGvhX5rt/x.jpg",
+    "cat_python": "https://i.ibb.co/Z6632LTn/x.jpg",
+    "cat_all": "https://i.ibb.co/6cy5fQjJ/x.jpg"
 }
 # =======================================================
 
@@ -86,10 +86,10 @@ def log_user_to_db(user):
 def get_main_menu_keyboard():
     return InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="🟢 [ 🛍️ Buy Membership ]", callback_data="buy_membership")],
-            [InlineKeyboardButton(text="🔵 [ 🔍 Check Status ]", callback_data="check_status")],
-            [InlineKeyboardButton(text="🟠 [ 🚀 Premium Demo ]", callback_data="demo_preview")],
-            [InlineKeyboardButton(text="🔴 [ 💬 Contact Support ]", callback_data="support")],
+            [InlineKeyboardButton(text=" [ 🔥 𝖡𝗎𝗒 𝖬𝖾𝗆𝖻𝖾𝗋𝗌𝗁𝗂𝗉 ]", callback_data="buy_membership")],
+            [InlineKeyboardButton(text=" [ 🔍 𝖢𝗁𝖾𝖼𝗄 𝖲𝗍𝖺𝗍𝗎𝗌 ]", callback_data="check_status")],
+            [InlineKeyboardButton(text=" [ 🔞 𝖯𝗋𝖾𝗆𝗂𝗎𝗆 𝖣𝖾𝗆𝗈 ]", callback_data="demo_preview")],
+            [InlineKeyboardButton(text=" [ 💬 𝖢𝗈𝗇𝗍𝖺𝖼𝗍 𝖲𝗎𝗉𝗉𝗈𝗋𝗍 ]", callback_data="support")],
         ]
     )
 
@@ -415,7 +415,7 @@ async def process_selected_plan(callback: CallbackQuery, state: FSMContext):
 async def process_pay_now(callback: CallbackQuery, state: FSMContext):
     await state.set_state(PaymentStates.waiting_for_screenshot)
     prompt_text = (
-        "📤 **Upload Payment Screenshot**\n\n"
+        "📤 **𝖴𝗉𝗅𝗈𝖺𝖽 𝖯𝖺𝗒𝗆𝖾𝗇𝗍 𝖲𝖼𝗋𝖾𝖾𝗇𝗌𝗁𝗈𝗍**\n\n"
         "Please send the clear screenshot/photo of your payment receipt right here in this chat.\n"
         "⚡ *Will be confirmed by admin in approx 2 minutes after upload!*"
     )
