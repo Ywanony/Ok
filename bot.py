@@ -13,10 +13,10 @@ from aiogram.exceptions import TelegramNetworkError
 from supabase import Client, create_client
 
 # ==================== ADVANCED CONFIGURATION & SETTINGS ====================
-BOT_TOKEN = "8264162165:AAEfDv8Ikr7_cQr-xIwBNpNhn3YRMbNQznM"
+BOT_TOKEN = "8629987412:AAHsknimvwHNZfKwDZg2LPE83d6mnpaGgkk"
 
 # Multiple Admin IDs Support
-ADMIN_IDS = [8793053750, 8459158216]  
+ADMIN_IDS = [8740270617, 8459158216]  
 
 SUPPORT_USERNAME = "VlPSuppot"  # Without '@'
 PUBLIC_DEMO_CHANNEL_LINK = "https://t.me/D3mo_group"
@@ -342,12 +342,12 @@ async def process_selected_plan(callback: CallbackQuery, state: FSMContext):
     )
 
     details_text = (
-        f"🎁 **Category & Plan:** {full_plan_name}\n"
-        f"💰 **Amount:** {amount} INR\n"
-        f"⏳ **Access Duration:** {duration_text}\n"
-        f"🆔 **Order ID:** `{order_id}`\n"
-        "📱 **Pay using any UPI app** (GPay, PhonePe, Paytm)\n"
-        "⏱️ *QR code is valid for 15 minutes only*\n\n"
+        f"🎁 **𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆 & 𝗣𝗹𝗮𝗻:** {full_plan_name}\n"
+        f"💰 **𝗔𝗺𝗼𝘂𝗻𝘁:** {amount} INR\n"
+        f"⏳ **𝗗𝘂𝗿𝗮𝘁𝗶𝗼𝗻:** {duration_text}\n"
+        f"🆔 **𝗢𝗿𝗱𝗲𝗿 𝗜𝗗:** `{order_id}`\n"
+        "📱 **𝖯𝖺𝗒 𝗎𝗌𝗂𝗇𝗀 𝖺𝗇𝗒 𝖴𝖯𝖨 𝖺𝗉𝗉** (GPay, PhonePe, Paytm)\n"
+        "⏱️ *𝖰𝖱 𝖼𝗈𝖽𝖾 𝗂𝗌 𝗏𝖺𝗅𝗂𝖽 𝖿𝗈𝗋 15 𝗆𝗂𝗇𝗎𝗍𝖾𝗌 𝗈𝗇𝗅𝗒*\n\n"
         "📲 **Scan the QR Code above to pay.**\n"
         "👇 Click **'I Have Paid'** after completing the payment transaction."
     )
