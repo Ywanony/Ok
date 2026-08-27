@@ -26,11 +26,11 @@ from supabase import Client, create_client
 # CONFIGURATION
 # ============================================================
 
-BOT_TOKEN = "8868005439:AAHGetUn8FwoJNO1VwKWyywr08wP-f1vWDU"
+BOT_TOKEN = "8723932915:AAFI3fPu4yIpScuquQu54omHWBaIiZ455v8"
 
 ADMIN_IDS = [
     7673557544,
-    8950269243,
+    8459158216,
 ]
 
 SUPPORT_USERNAME = "VlPSuppot"
