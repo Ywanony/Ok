@@ -34,7 +34,7 @@ ADMIN_IDS = [
 ]
 
 SUPPORT_USERNAME = "VlPSuppot"
-PUBLIC_DEMO_CHANNEL_LINK = "https://t.me/D3mo_group"
+PUBLIC_DEMO_CHANNEL_LINK = "https://t.me/AII_vip_groups"
 
 # Supabase Credentials
 SUPABASE_URL = "https://rzpowbdtzbeivhxkkern.supabase.co"
@@ -192,10 +192,10 @@ async def safe_edit_message(message: Message, text: str, reply_markup: InlineKey
 def get_main_menu_keyboard():
     return InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="[ 🔥 𝖡𝗎𝗒 𝖬𝖾𝗆𝖻𝖾𝗋𝗌𝗁𝗂𝗉 ]", callback_data="buy_membership")],
-            [InlineKeyboardButton(text="[ 🔍 𝖢𝗁𝖾𝖼𝗄 𝖲𝗍𝖺𝗍𝗎𝗌 ]", callback_data="check_status")],
-            [InlineKeyboardButton(text="[ 🔞 𝖯𝗋𝖾𝗆𝗂𝗎𝗆 𝖣𝖾𝗆𝗈 ]", callback_data="demo_preview")],
-            [InlineKeyboardButton(text="[ 💬 𝖢𝗈𝗇𝗍𝖺𝖼𝗍 𝖲𝗎𝗉𝗉𝗈𝗋𝗍 ]", callback_data="support")],
+            [InlineKeyboardButton(text=" 🔥 𝖡𝗎𝗒 𝖬𝖾𝗆𝖻𝖾𝗋𝗌𝗁𝗂𝗉 ", callback_data="buy_membership")],
+            [InlineKeyboardButton(text=" 🔍 𝖢𝗁𝖾𝖼𝗄 𝖲𝗍𝖺𝗍𝗎𝗌 ", callback_data="check_status")],
+            [InlineKeyboardButton(text=" 🔞 𝖯𝗋𝖾𝗆𝗂𝗎𝗆 𝖣𝖾𝗆𝗈 ", callback_data="demo_preview")],
+            [InlineKeyboardButton(text=" 💬 𝖢𝗈𝗇𝗍𝖺𝖼𝗍 𝖲𝗎𝗉𝗉𝗈𝗋𝗍 ", callback_data="support")],
         ]
     )
 
@@ -329,7 +329,7 @@ async def process_selected_plan(callback: CallbackQuery, state: FSMContext):
     )
 
     details_text = (
-        f"🎁 **Category & Plan:** {full_plan_name}\n"
+        f"🎁 **𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆 & 𝗣𝗹𝗮𝗻:** {full_plan_name}\n"
         f"💰 **Amount:** ₹{amount} INR\n"
         f"👥 **Groups:** {group_text}\n"
         f"🆔 **Order ID:** `{order_id}`\n\n"
