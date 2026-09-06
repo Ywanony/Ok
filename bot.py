@@ -26,7 +26,7 @@ from supabase import Client, create_client
 # CONFIGURATION
 # ============================================================
 
-BOT_TOKEN = "8973762383:AAE4mqXYZ3_uZ-4nbytITdq4U3Wg8uKDvNU"
+BOT_TOKEN = "8973762383:AAFUhern9b6r6UxWn78NBiaCidu2VE_7bgw"
 
 ADMIN_IDS = [
     8863002910,
@@ -285,7 +285,7 @@ async def process_main_menu(callback: CallbackQuery, state: FSMContext):
 @router.callback_query(F.data == "buy_membership")
 async def process_buy_membership(callback: CallbackQuery):
     plans_text = (
-        "💎 **Select Your VIP Membership Category**\n\n"
+        "💎 **𝗦𝗮𝗹𝗲𝗰𝘁 𝘄𝗵𝗶𝗰𝗵 𝗰𝗮𝘁𝗲𝗴𝗼𝗿𝘆 𝘆𝗼𝘂 𝘄𝗮𝗻𝘁.**\n\n"
         "Choose any category option below to open the corresponding plan checkout:"
     )
     await safe_edit_message(callback.message, plans_text, get_membership_categories_keyboard(), photo_url=DEFAULT_BANNER_URL)
@@ -299,7 +299,7 @@ async def process_selected_category(callback: CallbackQuery, state: FSMContext):
     category_photo = CATEGORY_PHOTOS.get(cat_code, DEFAULT_BANNER_URL)
     
     plan_select_text = (
-        f"💎 **Select Your VIP Membership Plan for {category_display_name}**\n\n"
+        f"💎 **𝗦𝗮𝗹𝗲𝗰𝘁 𝘆𝗼𝘂𝗿 𝗩𝗜𝗣 𝗺𝗲𝗺𝗯𝗲𝗿𝘀𝗵𝗶𝗽 𝗽𝗹𝗮𝗻 𝗳𝗼𝗿 {category_display_name}**\n\n"
         "Choose a plan from the options below:"
     )
     await safe_edit_message(callback.message, plan_select_text, get_membership_plans_keyboard(cat_code), photo_url=category_photo)
@@ -330,19 +330,19 @@ async def process_selected_plan(callback: CallbackQuery, state: FSMContext):
 
     details_text = (
         f"🎁 **𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆 & 𝗣𝗹𝗮𝗻:** {full_plan_name}\n"
-        f"💰 **Amount:** ₹{amount} INR\n"
-        f"👥 **Groups:** {group_text}\n"
-        f"🆔 **Order ID:** `{order_id}`\n\n"
+        f"💰 **𝗔𝗺𝗼𝘂𝗻𝘁:** ₹{amount} INR\n"
+        f"👥 **𝗚𝗿𝗼𝘂𝗽𝘀:** {group_text}\n"
+        f"🆔 **𝗢𝗿𝗱𝗲𝗿 𝗜𝗱:** `{order_id}`\n\n"
         "📱 **Pay using any UPI app** (GPay, PhonePe, Paytm)\n\n"
-        "⏱️ *QR code is valid for 15 minutes only*\n\n"
+        "⏱️ *𝖰𝖱 𝖼𝗈𝖽𝖾 𝗂𝗌 𝗏𝖺𝗅𝗂𝖽 𝖿𝗈𝗋 10 𝗆𝗂𝗇𝗎𝗍𝖾𝗌 𝗈𝗇𝗅𝗒*\n\n"
         "📲 **Scan the QR Code above to pay.**\n"
         "👇 Click **'I Have Paid'** after completing payment."
     )
 
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="💳 [ I Have Paid ]", callback_data="pay_now")],
-            [InlineKeyboardButton(text="« [ Back to Plans ]", callback_data=cat_code)],
+            [InlineKeyboardButton(text="💳 I Have Paid ", callback_data="pay_now")],
+            [InlineKeyboardButton(text="« Back to Plans ", callback_data=cat_code)],
         ]
     )
     await safe_edit_message(callback.message, details_text, keyboard, photo_url=CUSTOM_PLAN_QR)
@@ -354,7 +354,7 @@ async def process_pay_now(callback: CallbackQuery, state: FSMContext):
     await state.set_state(PaymentStates.waiting_for_screenshot)
     await callback.message.answer(
         "📸 **Please send the payment screenshot now.**\n\n"
-        "Make sure the UTR/Txn ID is clearly visible in the image.",
+        "After confirm payment, you'll get link here in 2 minutes.",
         parse_mode=ParseMode.MARKDOWN
     )
     await callback.answer()
@@ -458,8 +458,8 @@ async def process_check_status(callback: CallbackQuery):
 
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="🟢 [ 🛍️ Buy Membership ]", callback_data="buy_membership")],
-            [InlineKeyboardButton(text="« [ Back to Main Menu ]", callback_data="main_menu")],
+            [InlineKeyboardButton(text="  🛍️ Buy Membership ", callback_data="buy_membership")],
+            [InlineKeyboardButton(text="«  Back to Main Menu ", callback_data="main_menu")],
         ]
     )
     await safe_edit_message(callback.message, status_msg, keyboard, photo_url=INTRO_IMAGE_URL)
@@ -469,8 +469,8 @@ async def process_check_status(callback: CallbackQuery):
 async def process_demo(callback: CallbackQuery):
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="🔗 Tap Here to View Demo Channel", url=PUBLIC_DEMO_CHANNEL_LINK)],
-            [InlineKeyboardButton(text="« [ Back to Main Menu ]", callback_data="main_menu")],
+            [InlineKeyboardButton(text="🔗 Tap Here to View Demo Preview", url=PUBLIC_DEMO_CHANNEL_LINK)],
+            [InlineKeyboardButton(text="«  Back to Main Menu ", callback_data="main_menu")],
         ]
     )
     await safe_edit_message(
