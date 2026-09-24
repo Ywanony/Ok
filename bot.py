@@ -26,7 +26,7 @@ from supabase import Client, create_client
 # CONFIGURATION
 # ============================================================
 
-BOT_TOKEN = "8879890822:AAEtEzsB2RgsZXn827lRX3AmWJq_Uhg20mw"
+BOT_TOKEN = "8879890822:AAFITeY1A3w4JO2IMEOpsXbqxgg4BQGuki8"
 
 ADMIN_IDS = [
     8863002910,
@@ -34,7 +34,7 @@ ADMIN_IDS = [
 ]
 
 SUPPORT_USERNAME = "VlPSuppot"
-PUBLIC_DEMO_CHANNEL_LINK = "https://t.me/AII_Videos_groups"
+PUBLIC_DEMO_CHANNEL_LINK = "https://t.me/AII_Videos_group"
 
 # Supabase Credentials
 SUPABASE_URL = "https://rzpowbdtzbeivhxkkern.supabase.co"
